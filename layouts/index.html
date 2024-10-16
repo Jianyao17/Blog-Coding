@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <div class='hx-mx-auto hx-flex {{ partial "utils/page-width" . }}'>
+    <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+      <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
+        
+        {{- $cols := default 3 -}}
+        {{- $style := default "" -}}
+
+        {{- $css := printf "--hextra-feature-grid-cols: %v; %s" $cols $style -}}
+
+        <div
+          class="hextra-feature-grid hx-grid sm:max-lg:hx-grid-cols-2 max-sm:hx-grid-cols-1 hx-gap-4 hx-w-full not-prose"
+          {{ with $css }}style="{{ . | safeCSS }}"{{ end }}
+        >
+          {{ range .Paginator.Pages }}
+            {{ $postData := dict 
+                "Params"  .Params 
+                "link" .RelPermalink
+                "permalink" .Permalink }}
+            {{ partial "post-card.html" $postData }}
+          {{ end }}
+        </div>
+      </main>
+    </article>
+  </div>
+{{ end }}
