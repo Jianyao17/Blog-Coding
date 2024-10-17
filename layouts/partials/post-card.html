@@ -9,7 +9,7 @@
 
 {{- $external := hasPrefix $link "http" -}}
 {{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
-{{- $image = printf "%s%s" "/img/" $image -}}
+{{- $image = resources.Get (printf "%s%s" "img/" $image) -}}
 {{- $permalink := .Permalink | default "/"}}
 
 <div
