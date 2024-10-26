@@ -1,17 +1,34 @@
 {{ define "main" }}
   <div class='hx-mx-auto hx-flex {{ partial "utils/page-width" . }}'>
     <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
-      <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
-        <div class="content">
-          {{ if .Title }}
-            <h1 class="hx-underline hx-decoration-slate-100 hx-decoration-4">
-              #{{ .Title }}
-            </h1>
-          {{ end }}
-          {{ .Content }}
+      <main class="hx-w-full hx-min-w-0 hx-px-6 hx-pt-8 md:hx-px-12">
+        <div class="content hx-max-w-3xl">
+          <div class="hx-flex hx-flex-row hx-items-center hx-gap-2">
+            {{ if .Title }}
+              <h1 class="hx-underline hx-decoration-gray-300 dark:hx-decoration-gray-600 hx-decoration-4">
+                #{{ .Title }}
+              </h1>
+            {{ end }}
+            <div class="hx-w-6 hx-h-6 hx-px-3 hx-flex hx-justify-center hx-items-center hx-rounded-lg hx-bg-neutral-300
+                        hx-font-medium hx-text-neutral-600 dark:hx-text-neutral-400 dark:hx-bg-neutral-800">
+              {{ len .Paginator.Pages }}
+            </div> 
+          </div>
+          <div class="hx-mt-4 hx-text-md hx-text-neutral-700 dark:hx-text-neutral-300">
+            {{ .Content }}
+          </div>
         </div>
-        <div class="hx-mt-16">
-
+        <div class="hx-mt-8">
+          <div class="hextra-feature-grid hx-grid hx-grid-cols-1 md:hx-grid-cols-2 
+                      lg:hx-grid-cols-3 xl:hx-grid-cols-4 hx-gap-4 hx-w-full not-prose">
+            {{ range .Paginator.Pages }}
+              {{ $postData := dict 
+                  "Params"  .Params 
+                  "link" .RelPermalink
+                  "permalink" .Permalink }}
+              {{ partial "post-card.html" $postData }}
+            {{ end }}
+          </div>
         </div>
       </main>
     </article>

@@ -9,16 +9,19 @@
 
 {{- $external := hasPrefix $link "http" -}}
 {{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
-{{- $image = resources.Get (printf "%s%s" "img/" $image) -}}
+{{- $image := resources.Get (printf "img/%s" $image) -}}
 {{- $permalink := .Permalink | default "/"}}
 
 <div
   {{ with $style }}style="{{ . | safeCSS }}"{{ end }}
-  class="{{ $class }} hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient"
+  class="hx-aspect-auto md:hx-aspect-[1.1/1] max-md:hx-min-h-[380px] hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border 
+        hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 hover:hx-shadow-lg
+        before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient 
+        hover:hx-scale-[1.02] hx-transition-transform hx-ease-in-out hx-duration-100"
 >
   <div class="hx-relative hx-w-full hx-p-6">
     <a {{ with $link }}href="{{ $href }}" {{ with $external }} target="_blank" rel="noreferrer"{{ end }}{{ end }}>
-      <h3 class="hx-text-xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center">
+      <h3 class="hx-text-2xl md:hx-text-lg md:hx-leading-6 hx-font-medium hx-leading-7 hx-mb-2 hx-flex hx-items-center">
         {{ with $icon -}}
           <span class="hx-pr-2">
             {{- partial "utils/icon.html" (dict "name" . "attributes" "height=1.5rem") -}}
@@ -27,22 +30,39 @@
         <span>{{ $title }}</span>
       </h3>
     </a>
-    <div class="hx-flex hx-flex-column hx-align-middle">
-      {{ with .Params.tags }}
-        {{ range . }}
-          {{- partial "tag.html" 
-            (dict "content" .
-            "class" "hx-p-1 hx-text-xl"
-            "link" (printf "tags/%s" (urlize .))
-            "border" true )
-          -}}
-        {{ end }}
-      {{ end }}
+    <div class=" hx-text-gray-500 hx-text-sm md:hx-text-md hx-flex hx-items-center">
+      {{- with $date := .Params.date }}<span class="hx-mr-1">{{ partial "utils/format-date" $date }}</span>{{ end -}}
+      {{- $lazyLoading := site.Params.enableImageLazyLoading | default true -}}
+      {{ if and .Params.date .Params.authors }}<span class="hx-mx-1">·</span>{{ end -}}
+      {{- with $.Params.authors -}}
+        {{- range $i, $author := . -}}
+          {{- if reflect.IsMap $author -}}
+            {{- if and $i (not $author.image) }}<span class="hx-mr-1">,</span>{{ end -}}
+            <a
+              {{ with $author.link }}href="{{ . }}" target="_blank"{{ end }}
+              class="hx-group hx-inline-flex hx-items-center hx-text-current hx-gap-x-1.5 hx-mx-1"
+              {{ with $author.name }}title="{{ . }}"{{ end }}
+            >
+              {{- with $image := $author.image }}
+                {{- $isLocal := not (urls.Parse $image).Scheme -}}
+                {{- $startsWithSlash := hasPrefix $image "/" -}}
+                {{- if and $isLocal $startsWithSlash }}
+                  {{- $image = (relURL (strings.TrimPrefix "/" $image)) -}}
+                {{ end -}}
+                <img src="{{ $image | safeURL }}" alt="{{ $author.name }}" class="hx-inline-block hx-h-4 hx-w-4 hx-rounded-full" {{ if $lazyLoading }}loading="lazy"{{ end }} />
+              {{ end -}}
+              <div class="group-hover:hx-underline">{{ $author.name }}</div>
+            </a>
+          {{- else -}}
+            {{- if $i }}<span class="hx-mr-1">,</span>{{ end -}}<span class="hx-mx-1">{{ $author }}</span>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
     </div>
   </div>
   {{- with $image -}}
     <a {{ with $link }}href="{{ $href }}" {{ with $external }} target="_blank" rel="noreferrer"{{ end }}{{ end }}>
-      <img src="{{ . }}" class="hx-absolute hx-max-w-none hx-rounded-md {{ $imageClass }}" alt="{{ $title }}" loading="lazy"/>
+      <img src="{{ ($image.Fit "800x600 Center").RelPermalink }}" class="hx-absolute hx-max-w-none hx-rounded-md thumbnail {{ $imageClass }}" alt="{{ $title }}" loading="lazy"/>
     </a>
   {{- end -}}
 </div>

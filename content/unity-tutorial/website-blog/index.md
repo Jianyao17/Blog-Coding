@@ -1,11 +1,23 @@
 ---
 title: 'Website Blog'
 date: 2024-10-15T10:18:33+07:00
-toc: false
+authors: # Author
+  - name: Jianyao17
+    link: https://github.com/Jianyao17
+    image: https://github.com/Jianyao17.png
+
+desc: 
+  # Content summmary / descriptions
+tags:
+  - Unity
+  - Beginner
+  - Basic
+
+mainImg: green-tea.webp
+gitURL: https://github.com/Jianyao17 # Project source code
 ---
 
 
-![kuru-kuru](kuru-kuru-kururin.gif "ini alt text")
 
 ## 1.Pengenalan
 Membuat website blog coding tentang unity, shader, compute shader, opengl, gpu programing dalam bahasa Indonesia. Web akan di masukan iklan google adsense. Tampilan web minimalis seperti medium dan dev.to. Framework yang dipilih adalah [**Hugo**](https://gohugo.io/getting-started/quick-start/)
@@ -25,3 +37,5 @@ graph TD;
     B-->D;
     C-->D;
 ```
+
+![kuru-kuru](kuru-kuru-kururin.gif "ini alt text")

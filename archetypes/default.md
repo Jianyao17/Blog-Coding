@@ -13,6 +13,6 @@ tags:
   - Beginner
 draft: true
 
-mainImg: # Main thumbnail image
+mainImg: # Main thumbnail image 4:3
 gitURL: {{ .Site.Params.githubRepo }} # Project source code
 ---
