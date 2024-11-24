@@ -7,7 +7,8 @@ authors: # Author
     image: https://github.com/Jianyao17.png
 
 desc: 
-  # Content summmary / descriptions
+  Membahas pengenalan Untiy dan cara kerja game object
+
 tags:
   - Unity
   - Beginner

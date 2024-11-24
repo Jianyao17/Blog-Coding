@@ -1,0 +1,79 @@
+{{- $title := .Params.title | default "Default Title" -}}
+{{- $desc := .Params.desc | default "Default desc" -}}
+{{- $image := .Params.mainImg | default "/XSW_05.png" -}}
+{{- $icon := .icon | default "" -}}
+{{- $link := .link | default "#" -}}
+
+{{- $external := hasPrefix $link "http" -}}
+{{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
+{{- $image := resources.Get (printf "img/%s" $image) -}}
+
+<a class="hx-aspect-auto not-prose hx-block hx-relative
+          hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none
+          hover:hx-scale-[1.02] hover:hx-shadow-gray-100 dark:hover:hx-shadow-none hx-shadow-gray-100 active:hx-shadow-sm 
+          active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow 
+          dark:hx-border-neutral-800 dark:hx-bg-neutral-800 dark:hx-text-gray-50 hover:hx-shadow-lg 
+          dark:hover:hx-border-neutral-600 dark:hover:hx-bg-neutral-700"
+  href="{{ $href }}" {{ with $external }} target="_blank" rel="noreferrer" {{ end }}>
+  
+  <div class="hx-relative hx-w-full hx-h-full hx-grid">
+    <!-- Thumbnail Image -->
+    {{ if $image }}
+      <div class="hx-relative hx-aspect-[16/9] hx-overflow-hidden">
+        <img  class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
+              alt="{{ $title }}" src='{{ ($image.Fit "800x600 Center").RelPermalink }}'
+              loading="lazy" decoding="async" />
+      </div>
+    {{ end }}
+  
+    <!-- Title -->
+    <span class="hextra-card-icon hx-mt-0 hx-px-4 hx-pt-4 hx-pb-2 hx-flex hx-font-semibold hx-self-start
+                 hx-leading-7 md:hx-leading-6 hx-text-gray-700 hx-text-xl md:hx-text-lg hx-items-start 
+                 dark:hx-text-neutral-200 dark:hover:hx-text-neutral-50 hover:hx-text-gray-900">
+      {{ $title }}
+    </span>
+  
+    <!-- Description -->
+    <div class="hextra-card-subtitle hx-line-clamp-3 hx-text-sm hx-font-normal 
+              hx-text-gray-500 dark:hx-text-gray-400 hx-px-4">
+      {{ $desc }}
+    </div>
+
+    <!-- Publish Date & Author -->
+    <div class=" hx-text-gray-500 hx-text-sm md:hx-text-md hx-flex hx-self-end hx-px-4 hx-py-4">
+      {{- with $date := .Params.date }}
+        <span class="hx-mr-1">{{ partial "utils/format-date" $date }}</span>
+      {{ end -}}
+      {{- $lazyLoading := site.Params.enableImageLazyLoading | default true -}}
+      {{ if and .Params.date .Params.authors }}
+          <span class="hx-mx-1">·</span>
+      {{ end -}}
+      {{- with $.Params.authors -}}
+        {{- range $i, $author := . -}}
+          {{- if reflect.IsMap $author -}}
+            {{- if and $i (not $author.image) }}<span class="hx-mr-1">,</span>{{ end -}}
+            <span
+              {{ with $author.link }} onclick='window.location.href="{{ . }}"' target="_blank"{{ end }}
+              class="hx-group hx-inline-flex hx-items-center hx-text-current hx-gap-x-1.5 hx-mx-1"
+              {{ with $author.name }}title="{{ . }}"{{ end }}
+            >
+              {{- with $image := $author.image }}
+                {{- $isLocal := not (urls.Parse $image).Scheme -}}
+                {{- $startsWithSlash := hasPrefix $image "/" -}}
+                {{- if and $isLocal $startsWithSlash }}
+                  {{- $image = (relURL (strings.TrimPrefix "/" $image)) -}}
+                {{ end -}}
+                <img src="{{ $image | safeURL }}" alt="{{ $author.name }}" class="hx-inline-block hx-h-4 hx-w-4 hx-rounded-full" {{ if $lazyLoading }}loading="lazy"{{ end }} />
+              {{ end -}}
+              <div>{{ $author.name }}</div>
+            </span>
+          {{- else -}}
+            {{- if $i }}<span class="hx-mr-1">,</span>{{ end -}}<span class="hx-mx-1">{{ $author }}</span>
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    </div>
+  
+    
+  </div>
+</a>

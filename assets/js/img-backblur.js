@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   function applyGradient(image) {
-  const color = colorThief.getColor(image);
-  const card = image.closest(".hextra-feature-card");
-  card.style.background 
-  = `radial-gradient(ellipse at 50% 80%, rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.21), hsla(0, 0%, 100%, 0))`;
+    const color = colorThief.getColor(image);
+    const card = image.closest(".hextra-feature-card");
+    card.style.background 
+    = `radial-gradient(ellipse at 50% 80%, rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.21), hsla(0, 0%, 100%, 0))`;
   }
 });
