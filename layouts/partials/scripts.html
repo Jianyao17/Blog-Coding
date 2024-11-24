@@ -4,16 +4,16 @@
 {{- $jsLang := resources.Get "js/lang.js" -}}
 {{- $jsCodeCopy := resources.Get "js/code-copy.js" -}}
 {{- $jsFileTree := resources.Get "js/filetree.js" -}}
-{{- $jsSidebar := resources.Get "js/sidebar.js" -}}
+{{/*  {{- $jsSidebar := resources.Get "js/sidebar.js" -}}  */}}
 {{- $jsBackToTop := resources.Get "js/back-to-top.js" -}}
-{{- $jsImgBackBlur := resources.Get "js/img-backblur.js" -}}
+{{/*  {{- $jsImgBackBlur := resources.Get "js/img-backblur.js" -}}  */}}
 
-{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsSidebar $jsBackToTop $jsImgBackBlur | resources.Concat "js/main.js" -}}
+{{- $scripts := slice $jsTheme $jsMenu $jsCodeCopy $jsTabs $jsLang $jsFileTree $jsBackToTop | resources.Concat "js/main.js" -}}
 {{- if hugo.IsProduction -}}
   {{- $scripts = $scripts | minify | fingerprint -}}
 {{- end -}}
 <script defer src="{{ $scripts.RelPermalink }}" integrity="{{ $scripts.Data.Integrity }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+{{/*  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>  */}}
 
 {{/* Search */}}
 {{- if (site.Params.search.enable | default true) -}}
