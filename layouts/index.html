@@ -9,7 +9,8 @@
             {{ $postData := dict 
                 "Params"  .Params 
                 "link" .RelPermalink
-                "permalink" .Permalink }}
+                "permalink" .Permalink 
+                "displayTags" true }}
             {{ partial "post-card2.html" $postData }}
           {{ end }}
         </div>
