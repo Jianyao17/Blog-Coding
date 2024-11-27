@@ -72,3 +72,5 @@ params:
     displayCopyright: true
     displayPoweredBy: true
     width: normal
+  
+  displayAds: true

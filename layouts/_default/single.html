@@ -1,6 +1,6 @@
 {{ define "main" }}
   <div class="hx-mx-auto hx-flex {{ partial `utils/page-width` . }}">
-    {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayPlaceholder" true) }}
+    {{ partial "sidebar.html" (dict "context" . "disableSidebar" true "displayAds" site.Params.displayAds) }}
     {{ partial "toc.html" . }}
     <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="hx-w-full hx-min-w-0 hx-max-w-6xl hx-px-6 hx-pt-4 md:hx-px-12">
@@ -52,12 +52,22 @@
         {{ with $thumbnail := resources.Get (printf "img/%s" $thumbnail )}}
           <img src="{{ .RelPermalink }}" class="hx-rounded-md" alt="{{ .Params.Title }}" loading="lazy">
         {{ end }}
-        <div class="content hx-mt-16 dark:hx-text-neutral-200">
-          {{ .Content }}
-        </div>
+        {{ if site.Params.displayAds }}
+          <div class="hx-mt-8 hx-w-full hx-h-24 hx-text-center hx-bg-blue-700">
+            Google Ads
+          </div>
+        {{ end }}
+
+        <div class="content hx-mt-8 dark:hx-text-neutral-200">{{ .Content }}</div>
         {{ partial "components/last-updated.html" . }}
         {{ .Scratch.Set "reversePagination" true }}
         {{ partial "components/pager.html" . }}
+
+        {{ if site.Params.displayAds }}
+          <div class="hx-my-8 hx-w-full hx-h-24 hx-text-center hx-bg-blue-700">
+            Google Ads
+          </div>
+        {{ end }}
         {{ partial "components/comments.html" . }}
       </main>
     </article>
