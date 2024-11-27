@@ -33,7 +33,7 @@
           {{ with .Params.tags }}
               <div class="hx-mb-1 hx-flex hx-flex-column hx-items-center hx-gap-2">
                 {{ range . }}
-                <div class="hx-inline-block hx-items-center hx-leading-6 hx-text-sm hx-lowercase
+                <div class="hx-inline-block hx-items-center hx-leading-6 hx-text-sm
                             hx-subpixel-antialiased hx-text-blue-500">#{{ . }}</div>
                 {{ end }}
               </div>
@@ -46,13 +46,15 @@
           {{ $title }}
         </span>
         <!-- Description -->
-        <div class="hextra-card-subtitle hx-line-clamp-3 hx-text-sm hx-font-normal 
-                  hx-text-gray-500 dark:hx-text-gray-400">
-          {{ $desc }}
-        </div>
+        {{ with .Params.desc }}
+          <div class="hextra-card-subtitle hx-line-clamp-3 hx-text-sm hx-font-normal 
+                    hx-text-gray-500 dark:hx-text-gray-400">
+            {{ $desc }}
+          </div>
+        {{ end }}
       </div>
 
-      <!-- Publish Date & Author -->
+      <!-- Publish Date & Read Time -->
       <div class="hx-text-gray-500 hx-text-sm md:hx-text-md hx-justify-self-end
                   hx-flex hx-flex-row hx-align-middle">
         {{- with $date := .Params.date }}
@@ -60,38 +62,13 @@
             {{ partial "utils/format-date" $date }}
           </span>
         {{ end -}}
-        {{- $lazyLoading := site.Params.enableImageLazyLoading | default true -}}
-        {{ if and .Params.date .Params.authors }}
+        {{ if and .Params.date .Params.readTime }}
             <span class="hx-mx-1">·</span>
         {{ end -}}
-        {{- with $.Params.authors -}}
-          {{- range $i, $author := . -}}
-            {{- if reflect.IsMap $author -}}
-              {{- if and $i (not $author.image) }}<span class="hx-mr-1">,</span>{{ end -}}
-              <span
-                {{ with $author.link }} onclick='window.location.href="{{ . }}"' target="_blank"{{ end }}
-                class="hx-group hx-inline-flex hx-items-center hx-text-current hx-gap-x-1.5 hx-mx-1"
-                {{ with $author.name }}title="{{ . }}"{{ end }}
-              >
-                {{- with $image := $author.image }}
-                  {{- $isLocal := not (urls.Parse $image).Scheme -}}
-                  {{- $startsWithSlash := hasPrefix $image "/" -}}
-                  {{- if and $isLocal $startsWithSlash }}
-                    {{- $image = (relURL (strings.TrimPrefix "/" $image)) -}}
-                  {{ end -}}
-                  <img  class="hx-inline-block hx-h-4 hx-w-4 hx-rounded-full" {{ if $lazyLoading }}loading="lazy"{{ end }} 
-                        src="{{ $image | safeURL }}" alt="{{ $author.name }}"/>
-                {{ end -}}
-                <div>{{ $author.name }}</div>
-              </span>
-            {{- else -}}
-              {{- if $i }}<span class="hx-mr-1">,</span>{{ end -}}<span class="hx-mx-1">{{ $author }}</span>
-            {{- end -}}
-          {{- end -}}
-        {{- end -}}
+        {{- with .Params.readTime }}
+          <span class="hx-mr-1">{{ . }} Minutes</span>
+        {{ end }}
       </div>
     </div>
-  
-    
   </div>
 </a>

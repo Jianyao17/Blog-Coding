@@ -9,6 +9,7 @@ authors: # Author
 desc: 
   Membahas pengenalan Untiy dan cara kerja game object
 
+readTime: 5
 tags:
   - Unity
   - Beginner

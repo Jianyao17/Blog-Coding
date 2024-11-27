@@ -8,11 +8,11 @@ authors: # Author
 
 desc: 
   # Content summmary / descriptions
+readTime: 5 # In Minutes
 tags:
-  - Unity
-  - Beginner
+  -
 draft: true
 
-mainImg: # Main thumbnail image 4:3
+mainImg: # Main thumbnail image 16:9
 gitURL: {{ .Site.Params.githubRepo }} # Project source code
 ---

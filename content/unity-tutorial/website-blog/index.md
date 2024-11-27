@@ -8,6 +8,7 @@ authors: # Author
 
 desc: 
   # Content summmary / descriptions
+readTime: 5
 tags:
   - Unity
   - Beginner
