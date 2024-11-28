@@ -18,7 +18,7 @@
               {{ end }}
             </div>
           {{ end }}
-          <div class="hx-text-gray-500 hx-text-sm hx-flex hx-items-center hx-flex-wrap hx-gap-y-2">
+          <div class="hx-text-gray-600/90 dark:hx-text-gray-300/55 hx-text-sm hx-flex hx-items-center hx-flex-wrap hx-gap-y-2">
             {{- with $date := .Date }}<span class="hx-mr-1">{{ partial "utils/format-date" $date }}</span>{{ end -}}
             {{- $lazyLoading := site.Params.enableImageLazyLoading | default true -}}
             {{ if and .Date .Params.authors }}<span class="hx-mx-1">·</span>{{ end -}}
@@ -48,9 +48,9 @@
             {{- end -}}
           </div>
         </div>
-        {{ $thumbnail := .Params.mainImg | default "/default-image.jpg"}}
-        {{ with $thumbnail := resources.Get (printf "img/%s" $thumbnail )}}
-          <img src="{{ .RelPermalink }}" class="hx-rounded-md" alt="{{ .Params.Title }}" loading="lazy">
+        {{ $thumbnail := .Params.mainImg | default "/default-image.jpg" }}
+        {{ with $thumbnail := .Resources.Get $thumbnail }}
+          <img src='{{ ($thumbnail.Fit "1280x720 Center webp").RelPermalink }}' class="hx-rounded-md" alt="{{ .Params.Title }}" loading="lazy">
         {{ end }}
         {{ if site.Params.displayAds }}
           <div class="hx-mt-8 hx-w-full hx-h-24 hx-text-center hx-bg-blue-700">

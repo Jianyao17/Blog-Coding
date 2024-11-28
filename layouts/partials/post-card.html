@@ -22,7 +22,7 @@
     {{ if $image }}
       <div class="hx-relative hx-aspect-[16/9] hx-overflow-hidden">
         <img  class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
-              alt="{{ $title }}" src='{{ ($image.Fit "800x600 Center").RelPermalink }}'
+              alt="{{ $title }}" src='{{ ($image.Fit "800x600 Center webp").RelPermalink }}'
               loading="lazy" decoding="async" />
       </div>
     {{ end }}
@@ -48,14 +48,14 @@
         <!-- Description -->
         {{ with .Params.desc }}
           <div class="hextra-card-subtitle hx-line-clamp-3 hx-text-sm hx-font-normal 
-                    hx-text-gray-500 dark:hx-text-gray-400">
+                    hx-text-gray-600 dark:hx-text-gray-400">
             {{ $desc }}
           </div>
         {{ end }}
       </div>
 
       <!-- Publish Date & Read Time -->
-      <div class="hx-text-gray-500 hx-text-sm md:hx-text-md hx-justify-self-end
+      <div class="hx-text-gray-600/90 dark:hx-text-gray-300/55 hx-text-sm md:hx-text-md hx-justify-self-end
                   hx-flex hx-flex-row hx-align-middle">
         {{- with $date := .Params.date }}
           <span class="hx-mr-1">
