@@ -28,6 +28,7 @@ taxonomies:
   category: categories
 
 params:  
+  description: Web Coder belajar Unity & Rendering
   githubRepo: https://github.com/Jianyao17
 
   theme:
