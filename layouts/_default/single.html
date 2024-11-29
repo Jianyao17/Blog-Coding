@@ -37,7 +37,10 @@
                       {{- if and $isLocal $startsWithSlash }}
                         {{- $image = (relURL (strings.TrimPrefix "/" $image)) -}}
                       {{ end -}}
-                      <img src="{{ $image | safeURL }}" alt="{{ $author.name }}" class="hx-inline-block hx-h-4 hx-w-4 hx-rounded-full" {{ if $lazyLoading }}loading="lazy"{{ end }} />
+                      {{- with resources.GetRemote $image }}
+                        <img src='{{ (.Resize "100x100").RelPermalink | safeURL }}' alt="" 
+                            class="hx-inline-block hx-h-4 hx-w-4 hx-rounded-full" {{ if $lazyLoading }}loading="lazy"{{ end }} />
+                      {{ end -}}
                     {{ end -}}
                     <div class="group-hover:hx-underline">{{ $author.name }}</div>
                   </a>
@@ -50,7 +53,25 @@
         </div>
         {{ $thumbnail := .Params.mainImg | default "/default-image.jpg" }}
         {{ with $thumbnail := .Resources.Get $thumbnail }}
-          <img src='{{ ($thumbnail.Fit "1280x720 Center webp").RelPermalink }}' class="hx-rounded-md" alt="{{ .Params.Title }}" loading="lazy">
+          <picture>
+            {{ if eq $thumbnail.MediaType.SubType "gif" }}
+              <!-- Jika gambar adalah GIF -->
+              <source type="image/gif"
+                      srcset='
+                        {{ ($thumbnail.Fit "800x600   Center gif").RelPermalink }} 800w,
+                        {{ ($thumbnail.Fit "1200x900  Center gif").RelPermalink }} 1200w,
+                        {{ ($thumbnail.Fit "1600x1200 Center gif").RelPermalink }} 1600w'>
+            {{ else }}
+              <!-- Jika gambar adalah format lain (contoh: JPEG) -->
+              <source type="image/webp"
+                      srcset='
+                        {{ ($thumbnail.Fit "800x600   Center webp").RelPermalink }} 800w,
+                        {{ ($thumbnail.Fit "1200x900  Center webp").RelPermalink }} 1200w,
+                        {{ ($thumbnail.Fit "1600x1200 Center webp").RelPermalink }} 1600w'>
+            {{ end }}
+            <img class="hx-rounded-md hx-w-full" alt="{{ .Params.Title }}"
+                 sizes="(max-width: 1280px) 100vw, 1200px" fetchpriority="high">
+          </picture>
         {{ end }}
         {{ if site.Params.displayAds }}
           <div class="hx-mt-8 hx-w-full hx-h-24 hx-text-center hx-bg-blue-700">

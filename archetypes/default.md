@@ -14,6 +14,6 @@ tags: # Content Tags
 
 draft: true
 
-mainImg: # Main thumbnail image 16:9
+mainImg: # Main thumbnail image 4:3
 gitURL: {{ .Site.Params.githubRepo }} # Project source code
 ---

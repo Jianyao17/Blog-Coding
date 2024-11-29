@@ -14,7 +14,7 @@ tags:
   - Beginner
   - Basic
 
-mainImg: green-tea.webp
+mainImg: kuru-kuru-kururin.gif
 gitURL: https://github.com/Jianyao17 # Project source code
 ---
 

@@ -15,15 +15,23 @@
           active:hx-shadow-gray-200 hx-transition-all hx-duration-200 hover:hx-border-gray-300 hx-bg-gray-100 hx-shadow 
           dark:hx-border-neutral-800 dark:hx-bg-neutral-900 dark:hx-text-gray-50 hover:hx-shadow-lg 
           dark:hover:hx-border-neutral-600 dark:hover:hx-bg-neutral-800"
-  href="{{ $href }}" {{ with $external }} target="_blank" rel="noreferrer" {{ end }}>
+          href="{{ $href }}" {{ with $external }} target="_blank" rel="noreferrer" {{ end }}>
   
   <div class="hx-relative hx-w-full hx-h-full hx-flex hx-flex-col">
     <!-- Thumbnail Image -->
-    {{ if $image }}
+    {{ with $image }}
       <div class="hx-relative hx-aspect-[16/9] hx-overflow-hidden">
-        <img  class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
-              alt="{{ $title }}" src='{{ ($image.Fit "800x600 Center webp").RelPermalink }}'
-              loading="lazy" decoding="async" />
+        <picture>
+          {{ if eq $image.MediaType.SubType "gif"}}
+            <source type="image/gif" 
+                    srcset='{{ ($image.Fit "600x400 Center gif").RelPermalink }}'> 
+          {{ else }}
+            <source type="image/webp" 
+                    srcset='{{ ($image.Fit "600x400 Center webp").RelPermalink }}'>
+          {{ end }}
+          <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
+               decoding="async" loading="lazy" alt="{{ $title }}"/>
+        </picture>
       </div>
     {{ end }}
     <div class="hx-p-4 hx-flex hx-flex-col hx-flex-grow hx-justify-between">
