@@ -58,7 +58,7 @@
         {{- end -}}
       {{- end -}}
     {{- partial "theme-toggle" (dict "hideLabel" true) -}}
-    {{- partial "search.html" (dict "params" .Params) -}}
+    {{- partial "search-modal.html" (dict "params" .Params) -}}
     <a class="hx-p-2 hx-text-current" href="{{ .Site.Params.githubRepo }}" title="Lihat Github Repo">
       {{- partial "utils/icon.html" (dict "name" "github" "attributes" "height=24") -}}
     </a>
