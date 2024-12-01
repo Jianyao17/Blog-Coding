@@ -4,7 +4,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   if (/iPad|iPhone|Macintosh/.test(navigator.userAgent)) {
     // select the kbd element under the .search-wrapper class
-    const keys = document.querySelectorAll(".search-wrapper kbd");
+    const keys = document.querySelectorAll(".search-key");
     keys.forEach(key => {
       key.innerHTML = '<span class="hx-text-xs">⌘</span>K';
     });
@@ -27,20 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     el.addEventListener('focus', init);
     el.addEventListener('keyup', search);
     el.addEventListener('keydown', handleKeyDown);
-    el.addEventListener('input', handleInputChange);
-  }
-
-  const shortcutElements = document.querySelectorAll('.search-wrapper kbd');
-
-  function setShortcutElementsOpacity(opacity) {
-    shortcutElements.forEach(el => {
-      el.style.opacity = opacity;
-    });
-  }
-
-  function handleInputChange(e) {
-    const opacity = e.target.value.length > 0 ? 0 : 100;
-    setShortcutElementsOpacity(opacity);
   }
 
   // Get the search wrapper, input, and results elements.
@@ -94,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
       e.target !== resultsElement &&
       !resultsElement.contains(e.target)
     ) {
-      setShortcutElementsOpacity(100);
       hideSearchResults();
     }
   });
