@@ -21,8 +21,8 @@
   <div class="hx-px-4 hx-pt-4 md:hx-hidden">
     {{ partial "search.html" }}
   </div>
-  <div class="hextra-scrollbar hx-overflow-y-auto hx-overflow-x-hidden hx-p-4 hx-grow md:hx-h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
-    <ul class="hx-flex hx-flex-col hx-gap-1 md:hx-hidden">
+  <div class="hextra-scrollbar hx-overflow-y-auto hx-overflow-x-hidden hx-grow md:hx-h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx-flex hx-flex-col hx-p-4 hx-gap-1 md:hx-hidden">
       <!-- Nav -->
       {{ template "sidebar-main" (dict "context" site.Home "pageURL" $pageURL "page" $context "toc" true) -}}
       {{ template "sidebar-footer" }}
@@ -30,11 +30,13 @@
 
     <!-- Sidebar on large screen -->
     {{- if $disableSidebar -}}
-      {{- if $displayAds }}
-        <div class="max-xl:hx-hidden hx-flex hx-h-auto hx-mt-3 hx-bg-red-600">
-          Google Ads
-        </div>
-      {{ end -}}
+      <div class="max-xl:hx-hidden hx-flex hx-h-full hx-py-8 hx-ps-6">
+        {{- if $displayAds }}
+          <div class="hx-flex hx-flex-grow hx-justify-center hx-bg-red-600">
+            Google Ads
+          </div>
+        {{ end -}}
+      </div>
       {{ .context.Scratch.Set "enableFooterSwitches" true }}
     {{- else -}}
       <ul class="hx-flex hx-flex-col hx-gap-1 max-md:hx-hidden">
