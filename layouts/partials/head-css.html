@@ -14,6 +14,14 @@
   {{- end }}
 {{- end }}
 
+<!-- Google Fonts without render blocking -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" 
+      media="print" onload="this.onload=null;this.removeAttribute('media');" fetchpriority="high">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap">
+</noscript>
+
 
 <!-- Custom CSS -->
 {{- $custom := resources.Get "css/compiled/custom.css" }}

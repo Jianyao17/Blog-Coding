@@ -3,8 +3,7 @@ module.exports = {
   prefix: 'hx-',
   content: [
     "./layouts/**/*.html",
-    "./content/**/*.md",
-    "./assets/css/styles.css"
+    "./content/**/*.md"
   ],
   darkMode: ['class', 'html[class~="dark"]'],
   theme: {
