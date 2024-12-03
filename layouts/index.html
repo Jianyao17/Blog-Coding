@@ -5,14 +5,16 @@
     <article class="hx-w-full hx-break-words hx-flex hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-justify-center hx-pb-8 hx-pr-[calc(env(safe-area-inset-right)-1.5rem)]">
       <main class="hx-w-full hx-min-w-0 hx-px-6 hx-pt-4 md:hx-px-12">
         <div class="hextra-feature-grid hx-grid hx-grid-cols-1 md:hx-grid-cols-2 lg:hx-grid-cols-3 xl:hx-grid-cols-4 hx-gap-4 hx-w-full not-prose">
-          {{ range .Paginator.Pages }}
-            {{ $postData := dict 
-                "Params"  .Params 
-                "link" .RelPermalink
-                "permalink" .Permalink 
-                "displayTags" true }}
-            {{ partial "post-card.html" $postData }}
-          {{ end }}
+        {{ range $index, $page := .Paginator.Pages }}
+          {{ $isFirst := eq $index 0 }}
+          {{ $postData := dict 
+              "IsFirst" $isFirst
+              "Params"  $page.Params 
+              "link"    $page.RelPermalink
+              "permalink" $page.Permalink 
+              "displayTags" true }}
+          {{ partial "post-card.html" $postData }}
+        {{ end }}
         </div>
       </main>
     </article>

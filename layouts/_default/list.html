@@ -23,11 +23,13 @@
         <div class="hx-mt-8">
           <div class="hextra-cards hx-grid hx-gap-4 hx-w-full not-prose"
                style="--hextra-cards-grid-cols:4">
-            {{ range .Paginator.Pages }}
+            {{ range $index, $page := .Paginator.Pages }}
+              {{ $isFirst := eq $index 0 }}
               {{ $postData := dict 
-                  "Params"  .Params 
-                  "link" .RelPermalink
-                  "permalink" .Permalink 
+                  "IsFirst" $isFirst
+                  "Params"  $page.Params 
+                  "link"    $page.RelPermalink
+                  "permalink" $page.Permalink 
                   "displayTags" true }}
               {{ partial "post-card.html" $postData }}
             {{ end }}

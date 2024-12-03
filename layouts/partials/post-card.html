@@ -2,6 +2,7 @@
 {{- $desc := .Params.desc | default "Default desc" -}}
 {{- $image := .Params.mainImg | default "/XSW_05.png" -}}
 {{- $displayTags := .displayTags | default true -}}
+{{- $IsFirst := .IsFirst -}}
 {{- $icon := .icon | default "" -}}
 {{- $link := .link | default "#" -}}
 
@@ -29,8 +30,13 @@
             <source type="image/webp" 
                     srcset='{{ ($image.Fit "600x400 Center webp").RelPermalink }}'>
           {{ end }}
-          <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
-               decoding="async" loading="lazy" alt="{{ $title }}"/>
+          {{ if $IsFirst }}
+            <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
+                width="600" height="400" alt="{{ $title }}"/>
+          {{ else }}
+            <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
+                width="600" height="400" decoding="async" loading="lazy" alt="{{ $title }}"/>
+          {{ end }}
         </picture>
       </div>
     {{ end }}
