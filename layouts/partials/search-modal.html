@@ -24,18 +24,18 @@
 <div id="search-modal" style="display: none;" class="hx-fixed hx-inset-0 hx-hidden md:hx-flex hx-justify-center hx-backdrop-blur-sm hx-bg-black hx-bg-opacity-50">
   <div class="search-wrapper hx-relative hx-top-16 hx-w-full md:hx-w-[90vw] hx-h-fit hx-max-w-3xl hx-rounded-2xl hx-shadow-xl hx-border
               hx-p-3 hx-z-50 contrast-more:hx-border contrast-more:hx-border-gray-900 contrast-more:dark:hx-border-gray-50
-            hx-border-gray-200 hx-bg-white hx-text-gray-100 dark:hx-border-neutral-800 dark:hx-bg-neutral-900">
+            hx-border-gray-200 hx-text-gray-100 dark:hx-border-neutral-800 hx-bg-white dark:hx-bg-neutral-900">
 
-    <div class="hx-relative hx-flex hx-items-center hx-rounded-lg hx-text-gray-900 hx-bg-white dark:hx-bg-neutral-800 
+    <div class="hx-relative hx-flex hx-items-center hx-rounded-lg hx-text-gray-900 hx-bg-neutral-200 dark:hx-bg-neutral-800 
               hx-border-gray-200 contrast-more:hx-text-gray-800 dark:hx-text-gray-300 contrast-more:dark:hx-text-gray-300">
       <div class="hx-absolute hx-left-3 hx-capitalize">
         {{- partial "utils/icon.html" (dict "name" "search" "attributes" "height=20 class=\"group-data-[theme=light]:hx-hidden\"") -}}
       </div>
       <input
         placeholder="{{ $placeholder }}" type="search" spellcheck="false" value="" autofocus
-        class="search-input hx-px-3 hx-py-3 hx-ps-10 hx-pe-14 hx-block hx-w-full hx-appearance-none hx-rounded-lg hx-transition-colors hx-text-base hx-leading-tight
-               md:hx-text-sm placeholder:hx-text-gray-500 dark:placeholder:hx-text-gray-400 contrast-more:hx-border contrast-more:hx-border-current 
-               hx-ring-1 hx-ring-neutral-400 dark:hx-ring-neutral-600" style="outline: 0;"
+        class="search-input hx-px-3 hx-py-3 hx-ps-10 hx-pe-14 hx-block hx-w-full hx-appearance-none hx-rounded-lg hx-transition-colors hx-text-base 
+               hx-leading-tight md:hx-text-sm placeholder:hx-text-gray-500 dark:placeholder:hx-text-gray-400 contrast-more:hx-border
+               contrast-more:hx-border-current hx-bg-neutral-200 dark:hx-bg-neutral-800" style="outline: 0;"
       />
       <kbd class="hx-absolute hx-my-1.5 hx-me-2 hx-select-none ltr:hx-right-1.5 rtl:hx-left-1.5 hx-h-5 hx-rounded hx-bg-white hx-px-1.5 hx-font-mono hx-text-[10px] 
                   hx-font-medium hx-text-gray-500 hx-border dark:hx-border-gray-100/20 dark:hx-bg-dark/50 contrast-more:hx-border-current contrast-more:hx-text-current 

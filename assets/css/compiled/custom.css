@@ -746,8 +746,8 @@ video {
   margin-top: 2rem;
 }
 
-.hx-me-6 {
-  margin-inline-end: 1.5rem;
+.hx-mb-3 {
+  margin-bottom: 0.75rem;
 }
 
 .hx-line-clamp-3 {
@@ -834,33 +834,12 @@ video {
   height: 100%;
 }
 
-.hx-h-auto {
-  height: auto;
-}
-
-.hx-h-96 {
-  height: 24rem;
-}
-
-.hx-h-3\/4 {
-  height: 75%;
-}
-
-.hx-h-20 {
-  height: 5rem;
-}
-
 .hx-max-h-\[calc\(100vh-var\(--navbar-height\)-env\(safe-area-inset-bottom\)\)\] {
   max-height: calc(100vh - var(--navbar-height) - env(safe-area-inset-bottom));
 }
 
 .hx-max-h-\[min\(calc\(50vh-11rem-env\(safe-area-inset-bottom\)\)\,400px\)\] {
   max-height: min(calc(50vh - 11rem - env(safe-area-inset-bottom)),400px);
-}
-
-.hx-max-h-fit {
-  max-height: -moz-fit-content;
-  max-height: fit-content;
 }
 
 .hx-min-h-\[100px\] {
@@ -1022,10 +1001,6 @@ video {
   row-gap: 0.5rem;
 }
 
-.hx-gap-y-4 {
-  row-gap: 1rem;
-}
-
 .hx-self-start {
   align-self: flex-start;
 }
@@ -1151,6 +1126,20 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.hx-bg-neutral-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity));
+}
+
+.hx-bg-neutral-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245 / var(--tw-bg-opacity));
+}
+
+.hx-bg-neutral-200\/75 {
+  background-color: rgb(229 229 229 / 0.75);
+}
+
 .hx-bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -1236,11 +1225,6 @@ video {
   padding-bottom: 2rem;
 }
 
-.hx-py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
 .hx-pb-8 {
   padding-bottom: 2rem;
 }
@@ -1273,6 +1257,10 @@ video {
   padding-inline-start: 2.5rem;
 }
 
+.hx-ps-6 {
+  padding-inline-start: 1.5rem;
+}
+
 .hx-ps-8 {
   padding-inline-start: 2rem;
 }
@@ -1289,12 +1277,8 @@ video {
   padding-top: 2rem;
 }
 
-.hx-ps-4 {
-  padding-inline-start: 1rem;
-}
-
-.hx-ps-6 {
-  padding-inline-start: 1.5rem;
+.hx-pt-3 {
+  padding-top: 0.75rem;
 }
 
 .hx-text-left {
@@ -2107,10 +2091,6 @@ html {
 
   .md\:hx-h-\[calc\(100vh-var\(--navbar-height\)-var\(--menu-height\)\)\] {
     height: calc(100vh - var(--navbar-height) - var(--menu-height));
-  }
-
-  .md\:hx-h-24 {
-    height: 6rem;
   }
 
   .md\:hx-max-h-\[min\(calc\(100vh-5rem-env\(safe-area-inset-bottom\)\)\2c 500px\)\] {
