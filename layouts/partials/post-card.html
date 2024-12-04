@@ -1,6 +1,6 @@
 {{- $title := .Params.title | default "Default Title" -}}
 {{- $desc := .Params.desc | default "Default desc" -}}
-{{- $image := .Params.mainImg | default "/XSW_05.png" -}}
+{{- $thumbnail := .thumbnail | default "/XSW_05.png" -}}
 {{- $displayTags := .displayTags | default true -}}
 {{- $IsFirst := .IsFirst -}}
 {{- $icon := .icon | default "" -}}
@@ -8,7 +8,6 @@
 
 {{- $external := hasPrefix $link "http" -}}
 {{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
-{{- $image := resources.Get (printf "img/%s" $image) -}}
 
 <a class="hx-aspect-auto not-prose hx-block hx-relative
           hx-overflow-hidden hx-rounded-lg hx-border hx-border-gray-200 hx-text-current hx-no-underline dark:hx-shadow-none
@@ -20,24 +19,15 @@
   
   <div class="hx-relative hx-w-full hx-h-full hx-flex hx-flex-col">
     <!-- Thumbnail Image -->
-    {{ with $image }}
+    {{ with $thumbnail }}
       <div class="hx-relative hx-aspect-[16/9] hx-overflow-hidden">
-        <picture>
-          {{ if eq $image.MediaType.SubType "gif"}}
-            <source type="image/gif" 
-                    srcset='{{ ($image.Fit "600x400 Center gif").RelPermalink }}'> 
-          {{ else }}
-            <source type="image/webp" 
-                    srcset='{{ ($image.Fit "600x400 Center webp").RelPermalink }}'>
-          {{ end }}
-          {{ if $IsFirst }}
-            <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
-                width="600" height="400" alt="{{ $title }}"/>
-          {{ else }}
-            <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
-                width="600" height="400" decoding="async" loading="lazy" alt="{{ $title }}"/>
-          {{ end }}
-        </picture>
+        {{ if $IsFirst }}
+          <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
+              src="{{ $thumbnail }}" width="600" height="400" alt="{{ $title }}"/>
+        {{ else }}
+          <img class="hextra-card-image thumbnail hx-absolute hx-inset-0 hx-h-full hx-w-full hx-object-cover" 
+              src="{{ $thumbnail }}" width="600" height="400" decoding="async" loading="lazy" alt="{{ $title }}"/>
+        {{ end }}
       </div>
     {{ end }}
     <div class="hx-p-4 hx-flex hx-flex-col hx-flex-grow hx-justify-between">

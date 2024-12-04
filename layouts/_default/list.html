@@ -23,14 +23,24 @@
         <div class="hx-mt-8">
           <div class="hextra-cards hx-grid hx-gap-4 hx-w-full not-prose"
                style="--hextra-cards-grid-cols:4">
+            {{ $thumbnail := ((resources.Get "img/XSW_05.png").Fit "600x400 Center webp").RelPermalink }}
             {{ range $index, $page := .Paginator.Pages }}
+              <!-- Make Post Card with thumbnail -->
+              {{ with $mainImg := .Resources.Get $page.Params.mainImg }} 
+                {{ $mainImg = cond (eq .MediaType.SubType "gif") 
+                                  ($mainImg.Fit "600x400 Center gif") 
+                                  ($mainImg.Fit "600x400 Center webp") }}
+                {{ $thumbnail = $mainImg.RelPermalink }}
+              {{ end }}
+
               {{ $isFirst := eq $index 0 }}
               {{ $postData := dict 
-                  "IsFirst" $isFirst
-                  "Params"  $page.Params 
-                  "link"    $page.RelPermalink
-                  "permalink" $page.Permalink 
-                  "displayTags" true }}
+                "IsFirst" $isFirst
+                "Params"  $page.Params 
+                "link"    $page.RelPermalink
+                "permalink" $page.Permalink 
+                "thumbnail" $thumbnail
+                "displayTags" true }}
               {{ partial "post-card.html" $postData }}
             {{ end }}
           </div>
